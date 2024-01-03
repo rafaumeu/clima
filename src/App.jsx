@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Titulo } from './AppStyles.js'
+import { ClimaContainer, Titulo } from './AppStyles.js'
 import Busca from './components/Busca'
 import ClimaAtual from './components/ClimaAtual'
 import Previsao from './components/Previsao.jsx'
@@ -52,12 +52,12 @@ function App() {
   }
 
   return (
-    <div>
+    <ClimaContainer>
       <Titulo>Condições Climáticas</Titulo>
       <Busca cidade={cidade} setCidade={setCidade} buscarClima={buscarClima} />
       {clima && <ClimaAtual clima={clima} />}
       {previsao.length > 0 && <Previsao previsoes={previsao} />}
-    </div>
+    </ClimaContainer>
   )
 }
 

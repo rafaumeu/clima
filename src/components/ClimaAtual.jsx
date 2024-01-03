@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { ClimaInfo } from './ClimaAtualStyles'
 
 const ClimaAtual = ({ clima }) => {
   return (
-    <div>
+    <ClimaInfo>
       <h3>{clima.name}</h3>
       {clima.weather && clima.weather.length > 0 && (
         <img
@@ -15,7 +16,7 @@ const ClimaAtual = ({ clima }) => {
       {clima.weather && clima.weather.length > 0 && (
         <p>{clima.weather[0].description}</p>
       )}
-    </div>
+    </ClimaInfo>
   )
 }
 
