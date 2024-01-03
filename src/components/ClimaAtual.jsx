@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ClimaAtual = ({ clima }) => {
-  if (!clima || !clima.name) {
-    return <div>Dados do clima não disponíveis</div>
-  }
   return (
     <div>
       <h3>{clima.name}</h3>

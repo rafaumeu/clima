@@ -16,19 +16,22 @@ function App() {
       const respostaClima = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apiKey}&units=metric&lang=pt_br`
       )
+      const respostaPrevisao = await axios.get(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cidade}&appid=${apiKey}&units=metric&lang=pt_br`
+      )
       setClima(respostaClima.data)
+      setPrevisao(respostaPrevisao.data.list.slice(0, 5))
     } catch (error) {
       console.log('Erro ao buscar clima: ' + error)
     }
   }
-  console.log(clima)
 
   return (
     <div>
       <Titulo>Condições Climáticas</Titulo>
       <Busca cidade={cidade} setCidade={setCidade} buscarClima={buscarClima} />
-      <ClimaAtual clima={clima} />
-      <Previsao />
+      {clima && <ClimaAtual clima={clima} />}
+      {previsao.length > 0 && <Previsao previsoes={previsao} />}
     </div>
   )
 }

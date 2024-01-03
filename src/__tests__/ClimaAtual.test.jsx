@@ -26,31 +26,4 @@ describe('ClimaAtual Component', () => {
     expect(screen.getByText('33ºC')).toBeInTheDocument()
     expect(screen.getByText('nublado')).toBeInTheDocument()
   })
-
-  it('exibe mensagem de dados indisponíveis quando clima ou propriedades necessárias estão ausentes', () => {
-    render(<ClimaAtual clima={null} />)
-    expect(
-      screen.getByText('Dados do clima não disponíveis')
-    ).toBeInTheDocument()
-
-    const mockClima = {
-      name: 'CityName',
-      weather: [
-        {
-          main: '',
-          description: '',
-          icon: '',
-        },
-      ],
-      base: 'stations',
-      main: {
-        temp: null, // Coloque um valor numérico para temp que corresponda ao tipo definido no PropTypes
-      },
-    }
-
-    render(<ClimaAtual clima={mockClima} />)
-    expect(
-      screen.getByText('Dados do clima não disponíveis')
-    ).toBeInTheDocument()
-  })
 })
