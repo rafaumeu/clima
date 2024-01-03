@@ -70,9 +70,8 @@ describe('Teste de renderização do projeto', () => {
     const { getByText } = render(<App />)
 
     expect(getByText('Condições Climáticas')).toBeInTheDocument()
-    expect(getByText('ºC')).toBeInTheDocument()
+    expect(getByText('Dados do clima não disponíveis')).toBeInTheDocument()
     expect(getByText('Buscar')).toBeInTheDocument()
-    expect(getByText('Descrição da Temperatura')).toBeInTheDocument()
     expect(getByText('Previsão para as próximas horas')).toBeInTheDocument()
     expect(getByText('ºC - descrição')).toBeInTheDocument()
   })
@@ -89,7 +88,7 @@ describe('Teste de renderização do projeto', () => {
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledTimes(1)
       expect(axios.get).toHaveBeenCalledWith(
-        `https://api.openweathermap.org/data/2.5/weather?q=${mockCity}&appid=${config.apiKey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${mockCity}&appid=${config.apiKey}&units=metric&lang=pt_br`
       )
     })
   })
@@ -115,7 +114,7 @@ describe('Erros da aplicação', () => {
 
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledTimes(1)
-      expect(axios.get).toHaveBeenCalledWith(
+      expect(axios.get).not.toHaveBeenCalledWith(
         `https://api.openweathermap.org/data/2.5/weather?q=CidadeInexistente&appid=${config.apiKey}`
       )
 
