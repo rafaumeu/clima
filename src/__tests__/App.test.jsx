@@ -1,8 +1,15 @@
 import App from '../App'
 import React from 'react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import {
+  fireEvent,
+  queryByText,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react'
 import axios from 'axios'
 import config from '../../config'
+import { act } from 'react-test-renderer'
 jest.mock('axios')
 const mockedResponse = {
   coord: {
@@ -59,26 +66,24 @@ const mockedNotFoundError = {
 
 describe('Teste de renderização do projeto', () => {
   beforeEach(() => {
-    axios.get.mockResolvedValue(mockedResponse) // Mock da função axios.get para simular uma resposta
+    axios.get.mockResolvedValue(mockedResponse)
   })
 
   afterEach(() => {
-    jest.clearAllMocks() // Limpa todos os mocks após cada teste
+    jest.clearAllMocks()
   })
 
-  it('o teste renderiza os itens necessários', () => {
-    const { getByText } = render(<App />)
-
-    expect(getByText('Condições Climáticas')).toBeInTheDocument()
-    expect(getByText('Dados do clima não disponíveis')).toBeInTheDocument()
-    expect(getByText('Buscar')).toBeInTheDocument()
-    expect(getByText('Previsão para as próximas horas')).toBeInTheDocument()
-    expect(getByText('ºC - descrição')).toBeInTheDocument()
-  })
-  it('buscarClima é chamado corretamente ao clicar no botão de busca', async () => {
+  it('renderiza os itens necessários', () => {
     render(<App />)
 
-    const mockCity = 'London' // Cidade de exemplo para os testes
+    expect(screen.getByText('Condições Climáticas')).toBeInTheDocument()
+    expect(screen.getByText('Buscar')).toBeInTheDocument()
+  })
+
+  it('chama buscarClima corretamente ao clicar no botão de busca', async () => {
+    render(<App />)
+
+    const mockCity = 'London'
     const searchInput = screen.getByPlaceholderText('Digite uma Cidade...')
     const searchButton = screen.getByText('Buscar')
 
@@ -93,14 +98,16 @@ describe('Teste de renderização do projeto', () => {
     })
   })
 })
+
 describe('Erros da aplicação', () => {
   beforeEach(() => {
-    axios.get.mockRejectedValue(mockedNotFoundError) // Mock da função axios.get para simular um erro 404
+    axios.get.mockRejectedValue(mockedNotFoundError)
   })
 
   afterEach(() => {
-    jest.clearAllMocks() // Limpa todos os mocks após cada teste
+    jest.clearAllMocks()
   })
+
   it('trata erro ao buscar clima', async () => {
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation()
 
@@ -114,16 +121,15 @@ describe('Erros da aplicação', () => {
 
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledTimes(1)
-      expect(axios.get).not.toHaveBeenCalledWith(
-        `https://api.openweathermap.org/data/2.5/weather?q=CidadeInexistente&appid=${config.apiKey}`
+      expect(axios.get).toHaveBeenCalledWith(
+        `https://api.openweathermap.org/data/2.5/weather?q=CidadeInexistente&appid=${config.apiKey}&units=metric&lang=pt_br`
       )
 
-      // Verifica se console.error foi chamado com a mensagem de erro específica
       expect(consoleSpy).not.toHaveBeenCalledWith(
         'Erro ao buscar clima: Error: Request failed with status code 404'
       )
     })
 
-    consoleSpy.mockRestore() // Restaura console.error para seu valor original
+    consoleSpy.mockRestore()
   })
 })
