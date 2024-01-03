@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/ClimaAtual.jsx</title>
+    <title>Code coverage report for clima/src/components/Previsao.jsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/components</a> ClimaAtual.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">clima/src/components</a> Previsao.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/35</span>
+                <span class='fraction'>40/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/35</span>
+                <span class='fraction'>40/40</span>
             </div>
         
             
@@ -98,7 +98,20 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -106,14 +119,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -136,38 +146,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import PropTypes from 'prop-types'
 &nbsp;
-const ClimaAtual = ({ clima }) =&gt; {
+const Previsao = ({ previsoes }) =&gt; {
   return (
     &lt;div&gt;
-      &lt;h3&gt;{clima.name}&lt;/h3&gt;
-      &lt;img
-        src={`http://openweathermap.org/img/wn/${clima.weather[0].icon}.png`}
-        alt={`clima.weather[0].description`}
-      /&gt;
-      &lt;p&gt;{clima.main.temp}ºC&lt;/p&gt;
-      &lt;p&gt;{clima.weather[0].description}&lt;/p&gt;
+      &lt;h4&gt;Previsão para as próximas horas&lt;/h4&gt;
+      &lt;ul&gt;
+        {previsoes.map((previsao) =&gt; (
+          &lt;li key={previsao.dt}&gt;
+            &lt;img
+              src={`http://openweathermap.org/img/wn/${previsao.weather[0].icon}.png`}
+              alt={previsao.weather[0].description}
+            /&gt;
+            {previsao.main.temp} ºC - {previsao.weather[0].description}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
     &lt;/div&gt;
   )
 }
 &nbsp;
-ClimaAtual.propTypes = {
-  clima: PropTypes.shape({
-    weather: PropTypes.arrayOf(
-      PropTypes.shape({
-        main: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }).isRequired
-    ).isRequired,
-    base: PropTypes.string.isRequired,
-    main: PropTypes.shape({
-      temp: PropTypes.number.isRequired,
-    }).isRequired,
-    name: PropTypes.string.isRequired,
-  }),
+Previsao.propTypes = {
+  previsoes: PropTypes.arrayOf(
+    PropTypes.shape({
+      dt: PropTypes.number.isRequired,
+      main: PropTypes.shape({
+        temp: PropTypes.number.isRequired,
+      }).isRequired,
+      weather: PropTypes.arrayOf(
+        PropTypes.shape({
+          icon: PropTypes.string.isRequired,
+          description: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    })
+  ).isRequired,
 }
 &nbsp;
-export default ClimaAtual
+export default Previsao
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,16 +190,16 @@ export default ClimaAtual
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-03T20:14:20.050Z
+                at 2024-01-03T21:30:53.352Z
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     
