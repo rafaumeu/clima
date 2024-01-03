@@ -5,12 +5,16 @@ const ClimaAtual = ({ clima }) => {
   return (
     <div>
       <h3>{clima.name}</h3>
-      <img
-        src={`http://openweathermap.org/img/wn/${clima.weather[0].icon}.png`}
-        alt={`clima.weather[0].description`}
-      />
-      <p>{clima.main.temp}ºC</p>
-      <p>{clima.weather[0].description}</p>
+      {clima.weather && clima.weather.length > 0 && (
+        <img
+          src={`http://openweathermap.org/img/wn/${clima.weather[0].icon}.png`}
+          alt={clima.weather[0].description}
+        />
+      )}
+      {clima.main && <p>{clima.main.temp}ºC</p>}
+      {clima.weather && clima.weather.length > 0 && (
+        <p>{clima.weather[0].description}</p>
+      )}
     </div>
   )
 }

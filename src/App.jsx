@@ -11,6 +11,30 @@ function App() {
   const [clima, setClima] = useState(null)
   const [previsao, setPrevisao] = useState([])
   const apiKey = config.apiKey
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude
+      const lon = position.coords.longitude
+
+      try {
+        const respostaClima = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=pt_br`
+        )
+        setCidade(respostaClima.data.name)
+        setClima(respostaClima.data)
+
+        const respostaPrevisao = await axios.get(
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=pt_br`
+        )
+        setPrevisao(respostaPrevisao.data.list.slice(0, 5))
+      } catch (error) {
+        console.log('Erro ao buscar clima: ' + error)
+        // Exibir uma mensagem de erro para o usuário
+      }
+    })
+  }, [apiKey])
+
   const buscarClima = async () => {
     try {
       const respostaClima = await axios.get(
@@ -23,6 +47,7 @@ function App() {
       setPrevisao(respostaPrevisao.data.list.slice(0, 5))
     } catch (error) {
       console.log('Erro ao buscar clima: ' + error)
+      // Exibir uma mensagem de erro para o usuário
     }
   }
 
