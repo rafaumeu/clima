@@ -7,7 +7,10 @@ describe('Teste de renderização do projeto', () => {
     const { getByText } = render(<App />)
 
     expect(getByText('Condições Climáticas')).toBeInTheDocument()
-    expect(getByText('Busca')).toBeInTheDocument()
-    expect(getByText('Clima Atual')).toBeInTheDocument()
+    expect(getByText('ºC')).toBeInTheDocument()
+    expect(getByText('Buscar')).toBeInTheDocument()
+    expect(getByText('Descrição da Temperatura')).toBeInTheDocument()
+    expect(getByText('Previsão para as próximas horas')).toBeInTheDocument()
+    expect(getByText('ºC - descrição')).toBeInTheDocument()
   })
 })
